@@ -51,7 +51,7 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 			<select style="border-radius: 20px;border-color: #007bff;" id="ee_filter_level" name='level'>
 			<option value="" class="ee_filter_show_all"><?php echo __('Show All', 'event_espresso'); ?></option>
 			<?php
-				$ee_levels =  array('Pre-MathCounts', 'AMC 8/MathCounts', 'AMC 10/12', 'AIME', 'USA(J)MO', 'Programming', 'USACO Bronze',
+				$ee_levels =  array('Elementary School', 'AMC 8/MathCounts', 'AMC 10/12', 'AIME', 'USA(J)MO', 'Programming', 'USACO Bronze',
 				'USACO Silver', 'USACO Gold', 'USACO Platinum', 'F=ma', 'Master' );
 				foreach($ee_levels as $level) {
 					$level_code =  $courseCatalogTemplate->get_level_code($level);
@@ -164,7 +164,9 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 		$registration_url = $destination . "/?searchfilter=".$course_code;
 
 		//Create the register now button
-		$live_button 		= '<span class="butonblue"> <a id="a_register_link-'.$course_code.'" class="a_register_link" target="_blank" href="'.$registration_url.'"><button class="btn btn-primary"  >'.$button_text.'</button></a></span>';
+		$live_button 		= '<span class="butonblue"> <a id="a_register_link-'.$course_code.'"  class="a_register_link" target="_blank" href="'.$registration_url.'"><button 
+		style="background-color:#007bff" class="btn btn-primary"  >'.$button_text.'</button></a></span>';
+
 
 		
 		if(isset($course_code) && !empty($course_code)) {

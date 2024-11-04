@@ -25,7 +25,7 @@ class AsaCourseCatalogTemplate
     {    
         $subject = $_POST['subject']  === 'cs' ? 'cs-' : $_POST['subject'];
         $subject_level  = array(      
-        array("subject"=>"math","level"=>"Pre-MathCounts"),
+        array("subject"=>"math","level"=>"Elementary School"),
         array("subject"=>"math","level"=>"AMC 8/MathCounts"),
         array("subject"=>"math","level"=>"AMC 10/12"),
         array("subject"=>"math","level"=>"AIME"),
@@ -271,7 +271,7 @@ class AsaCourseCatalogTemplate
 
 		$levels = 
 		array(      
-		  array("level_code"=>"mc1","level"=>"Pre-MathCounts"),
+		  array("level_code"=>"mc1","level"=>"Elementary School"),
 		  array("level_code"=>"mc2","level"=>"AMC 8/MathCounts"),
 		  array("level_code"=>"mc3","level"=>"AMC 10/12"),
 		  array("level_code"=>"mc4","level"=>"AIME"),
@@ -302,7 +302,7 @@ class AsaCourseCatalogTemplate
 
 		$levels = 
 		array(      
-		  array("level_code"=>"mc1","level"=>"Pre-MathCounts"),
+		  array("level_code"=>"mc1","level"=>"Elementary School"),
 		  array("level_code"=>"mc2","level"=>"AMC 8/MathCounts"),
 		  array("level_code"=>"mc3","level"=>"AMC 10/12"),
 		  array("level_code"=>"mc4","level"=>"AIME"),
