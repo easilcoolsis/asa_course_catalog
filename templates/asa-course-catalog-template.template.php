@@ -12,9 +12,9 @@ $courseCatalogTemplate = new AsaCourseCatalogTemplate();
 $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
 if(!empty($queries)) { 
-	$subject = $queries['subject'];
-	$posted_level = $queries['level'];
-	$searchfilter = $queries['searchfilter'];
+	$subject =  isset($queries['subject']) ? $queries['subject'] : "";
+	$posted_level = isset($queries['level']) ? $queries['level'] : "";
+	$searchfilter = isset($queries['searchfilter']) ? $queries['searchfilter'] : "";
 }
 
 $searchfilter = !isset($searchfilter) ? '' :  $searchfilter;
@@ -32,9 +32,9 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 			<select style="border-radius: 20px;border-color: #007bff;" id="ee_filter_subject" name='subject'>
 			<option value="" class="ee_filter_show_all"><?php echo __('Show All', 'event_espresso'); ?></option>
 			<?php
-				$ee_subjects = array('Mathematics','Computer Science', 'Physics' );
+				$ee_subjects = array('Mathematics','Computer Science',  'AI', 'Physics' );
 				foreach($ee_subjects as $sbj) {
-					$subject_code = $sbj === 'Mathematics' ? 'math' : ($sbj === 'Computer Science' ? 'cs' : 'physics');
+					$subject_code = $courseCatalogTemplate->getSubjectCode($sbj);
 					if (strtolower($subject_code) === strtolower($subject))
 						echo '<option  value="' . $subject_code . '" selected="'.$subject_code.'" class="' . $subject_code . '">'. $sbj. '</option>';
 					else
@@ -52,8 +52,9 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 			<option value="" class="ee_filter_show_all"><?php echo __('Show All', 'event_espresso'); ?></option>
 			<?php
 				$ee_levels =  array('Elementary School', 'AMC 8/MathCounts', 'AMC 10/12', 'AIME', 'USA(J)MO', 'Programming', 'USACO Bronze',
-				'USACO Silver', 'USACO Gold', 'USACO Platinum', 'F=ma', 'Master' );
+				'USACO Silver', 'USACO Gold', 'USACO Platinum', 'Data Science', 'Machine Learning', 'Deep Learning', 'AI Olympiad', 'F=ma', 'Master' );
 				foreach($ee_levels as $level) {
+
 					$level_code =  $courseCatalogTemplate->get_level_code($level);
 					if (strtolower($level_code) === strtolower($posted_level)) {
 						echo '<option value="' . $level_code . '" selected="'.$level_code.'" class="' . $level_code . '">'. $level. '</option>';
@@ -67,27 +68,27 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 		</p>
 	</div>
      <div class="col-md-3">
-		<?php if ($footable != 'false' && $table_search != 'false'){ ?>
+
 			<label><?php echo "Search Course"; ?></label>
 		<p>
 			<input style="border-radius: 20px;border-color: #007bff;" id="search-filter"  name='searchfilter' class="search-filter" type="text" value="<?php echo $searchfilter; ?>"/>
 		</p>
 		
-		<?php } ?>
+
      </div>
      <div class="col-md-2">
-		<?php if ($footable != 'false' && $table_search != 'false'){ ?>
+
 			<p>
 			<a><input class="btn btn-primary" type="submit"  name="submit" id="filter-button" style="background-color:#007bff;border-radius:20px;width:100%;padding:15px;margin-top:13%;font-size:15px" target="_blank" value="Filter"/></a>
 			</p>		
-		<?php } ?>
+
       </div>
 	  
 	</div>
 	</form>
 	<br>
 
-	<table id="ee_filter_table"  class="espresso-table table footable" width="100%" data-page-size="<?php echo $table_pages; ?>" data-filter="#filter">
+	<table id="ee_filter_table"  class="espresso-table table footable" width="100%" data-page-size=25 data-filter="#filter">
 
 		<thead class="espresso-table-header-row">
 			<tr>
@@ -103,7 +104,7 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 	
 		<tfoot>
 			<tr>
-			<?php echo '<td colspan="' . ($show_venues ? '9' : '3') . '">'; ?> 
+			<td colspan="3">
 					<div class="pagination pagination-centered"></div>
 				</td>
 			</tr>
@@ -146,6 +147,10 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 				$course_link = 'physics';
 				$subject = 'Physics';
 				break;
+			case 'ai':
+					$course_link = 'ai';
+					$subject = 'AI';
+					break;
 			default: 
 				$course_link = '';
 				break;	
@@ -155,8 +160,8 @@ $posted_level =  !isset($posted_level) ? '' :  $posted_level;
 
 		//Create the event link
 	    $button_text		= $reg_button_text;
-		if(strpos(home_url(), "dev") !== false) {
-			$destination = "https://dev.app.alphastar.academy";
+		if(strpos(home_url(), "online") !== false) {
+			$destination = "https://app.alphastar.online";
 		} else {
 		   $destination = "https://app.alphastar.academy";
 		}

@@ -35,6 +35,10 @@ class AsaCourseCatalogTemplate
         array("subject"=>"cs-","level"=>"USACO Silver"),
         array("subject"=>"cs-","level"=>"USACO Gold"),
         array("subject"=>"cs-","level"=>"USACO Platinum"),
+        array("subject"=>"ai","level"=>"Data Science"),
+        array("subject"=>"ai","level"=>"Machine Learning"),
+        array("subject"=>"ai","level"=>"Deep Learning"),
+        array("subject"=>"ai","level"=>"AI Olympiad"),
         array("subject"=>"physics","level"=>"F=ma"),
         array("subject"=>"math,physics,cs-","level"=>"Master")
         );
@@ -281,6 +285,10 @@ class AsaCourseCatalogTemplate
 		  array("level_code"=>"cc3","level"=>"USACO Silver"),
 		  array("level_code"=>"cc4","level"=>"USACO Gold"),
 		  array("level_code"=>"cc5","level"=>"USACO Platinum"),
+          array("level_code"=>"ds","level"=>"Data Science"),
+		  array("level_code"=>"ml","level"=>"Machine Learning"),
+		  array("level_code"=>"dl","level"=>"Deep Learning"),
+		  array("level_code"=>"aio","level"=>"AI Olympiad"),
 		  array("level_code"=>"fma","level"=>"F=ma"),
 		  array("level_code"=>"master","level"=>"Master")
 		);
@@ -297,6 +305,17 @@ class AsaCourseCatalogTemplate
 		 return $result;
 	  }
 
+      public static function getSubjectCode(string $subject): string
+      {
+          $map = [
+              'Mathematics'         => 'math',
+              'Computer Science'    => 'cs',
+              'Physics'             => 'physics',
+              'AI' => 'ai'
+          ];
+  
+          return $map[$subject] ?? '';
+      }
 
 	  public function get_level($level_code) {
 
@@ -312,6 +331,10 @@ class AsaCourseCatalogTemplate
 		  array("level_code"=>"cc3","level"=>"USACO Silver"),
 		  array("level_code"=>"cc4","level"=>"USACO Gold"),
 		  array("level_code"=>"cc5","level"=>"USACO Platinum"),
+          array("level_code"=>"ds","level"=>"Data Science"),
+		  array("level_code"=>"ml","level"=>"Machine Learning"),
+		  array("level_code"=>"dl","level"=>"Deep Learning"),
+		  array("level_code"=>"aio","level"=>"AI Olympiad"),
 		  array("level_code"=>"fma","level"=>"F=ma"),
 		  array("level_code"=>"master","level"=>"Master")
 		);
@@ -328,7 +351,7 @@ class AsaCourseCatalogTemplate
 		 return $result;
 	  }
 
-	  function sortorder($fieldname){
+	  public static function sortorder($fieldname){
 
 		parse_str( $_SERVER['QUERY_STRING'], $params);
 		$params['order_by'] = $fieldname;
